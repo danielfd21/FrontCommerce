@@ -1,0 +1,74 @@
+<div class="pagina">
+  <div class="tarjeta">
+    <div class="encabezado">
+      <div class="icono">📦</div>
+
+      <div class="texto-encabezado">
+        <span class="eyebrow">Importación</span>
+        <h1>Carga de Commerce</h1>
+        <p>Sube un archivo CSV con tus registros para procesarlos en el sistema.</p>
+      </div>
+    </div>
+
+    <div class="seccion-archivo">
+      <div class="encabezado-seccion">
+        <label class="titulo">Archivo CSV</label>
+        <span class="badge">Formatos válidos</span>
+      </div>
+
+      <label class="zona-archivo" for="archivo-commerce">
+        <input
+          id="archivo-commerce"
+          type="file"
+          accept=".csv"
+          (change)="seleccionarArchivo($event)"
+        />
+
+        <div class="contenido-archivo">
+          <span class="icono-subida">⇪</span>
+
+          <div class="texto-carga">
+            <strong>Selecciona tu archivo</strong>
+            <span>Formato permitido: .csv</span>
+          </div>
+        </div>
+      </label>
+
+      <div class="archivo-seleccionado" *ngIf="archivoSeleccionado">
+        <span class="archivo-icono">📄</span>
+
+        <div class="archivo-info">
+          <strong>{{ archivoSeleccionado.name }}</strong>
+          <span>Archivo listo para cargar</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lista-requisitos" aria-label="Requisitos del archivo">
+      <div class="requisito"><span class="dot"></span>Encabezados válidos</div>
+      <div class="requisito"><span class="dot"></span>Separador CSV correcto</div>
+      <div class="requisito"><span class="dot"></span>Formato UTF-8 recomendado</div>
+    </div>
+
+    <button
+      class="boton-subir"
+      (click)="subirArchivo()"
+      [disabled]="!archivoSeleccionado || cargando"
+    >
+      <span class="btn-icon">⬆</span>
+
+      <span *ngIf="!cargando">Subir archivo</span>
+      <span *ngIf="cargando">Subiendo...</span>
+    </button>
+
+    <div
+      class="mensaje"
+      *ngIf="mensaje"
+      [class.exito]="mensaje.includes('correctamente')"
+      [class.error]="mensaje.toLowerCase().includes('error')"
+    >
+      {{ mensaje }}
+    </div>
+  </div>
+</div>
+
